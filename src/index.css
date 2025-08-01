@@ -62,3 +62,11 @@ button:hover {
 .todo-list {
   overflow-y: auto;
 }
+
+.focus-session {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  gap: 1rem;
+  width: 60%;
+}
