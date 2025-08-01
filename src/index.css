@@ -29,6 +29,7 @@ button {
   cursor: pointer;
   transition: border-color 0.25s;
 }
+
 button:hover {
   border-color: #646cff;
 }
@@ -38,9 +39,11 @@ button:hover {
     color: #213547;
     background-color: #ffffff;
   }
+
   a:hover {
     color: #747bff;
   }
+
   button {
     background-color: #f9f9f9;
   }
@@ -48,7 +51,7 @@ button:hover {
 
 .app {
   display: grid;
-  grid-template-columns: 1fr 2fr;
+  grid-template-columns: 1.5fr 2fr;
   width: 100vw;
   height: 100vh;
 }
@@ -69,4 +72,34 @@ button:hover {
   padding: 1rem;
   gap: 1rem;
   width: 60%;
+  height: auto;
+}
+
+.clock {
+  display: flex;
+  height: 100%;
+  gap: 2.5rem;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+
+}
+
+.clock-display {
+  background: #000;
+  width: 12rem;
+  height: 12rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+}
+
+.clock-details {
+  line-height: .5;
+}
+
+.calendar {
+  height: 100%;
 }
