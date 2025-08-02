@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Clock = () => {
+const ClockCounter = () => {
   return (
     <div className='clock'>
         <div className='clock-display'>
@@ -15,4 +15,4 @@ const Clock = () => {
   )
 }
 
-export default Clock
+export default ClockCounter

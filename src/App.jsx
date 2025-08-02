@@ -1,20 +1,46 @@
 import './index.css'
-import FocusSession from './component/FocusSession'
-import Clock from './component/Clock'
-import Calender from './component/Calender'
-import TodoList from './component/TodoList'
+import { useState } from 'react'
+import DashBoard from './pages/DashBoard'
+import NewProject from './pages/NewProject'
 
 const App = () => {
+
+  const [isDashboardOpen, setIsDashboardOpen] = useState(true);
+  const [isAddTaskOpen, setIsAddTaskOpen] = useState(false);
+
+  const handleClick = (e) => {
+
+    if (e.target.textContent === 'Add New Project/Tasks') {
+      setIsDashboardOpen(false);
+      setIsAddTaskOpen(true);
+    } else {
+      setIsAddTaskOpen(false);
+      setIsDashboardOpen(true);
+    }
+  }
+
   return (
     <div className='app'>
-      <div className='timing-det'>
-        <FocusSession />
-        <Clock />
-        <Calender />
+
+      <div className="header">
+
+        <button
+          onClick={(e) => handleClick(e)}>
+          DashBoard
+        </button>
+
+        <button
+          onClick={handleClick}>
+          Add New Project/Tasks
+        </button>
+
       </div>
-      <div className='todo-list'>
-        <TodoList />
-      </div>
+
+      <main className="main">
+        {isDashboardOpen && <DashBoard />}
+        {isAddTaskOpen && <NewProject />}
+      </main>
+
     </div>
   )
 }

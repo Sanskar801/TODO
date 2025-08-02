@@ -49,7 +49,7 @@ button:hover {
   }
 }
 
-.app {
+/* .app {
   display: grid;
   grid-template-columns: 1.5fr 2fr;
   width: 100vw;
@@ -102,4 +102,26 @@ button:hover {
 
 .calendar {
   height: 100%;
+} */
+
+.app {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding-left: 1rem;
+  padding-top: 1rem;
+  gap: 1rem;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.main {
+  display: flex;
+  flex: 1;
+  padding: 1rem;
 }
