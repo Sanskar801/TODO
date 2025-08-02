@@ -1,15 +1,21 @@
-const TaskItem = () => {
+const TaskItem = ({ task, onToggle, onDelete, isCreating = false }) => {
     return (
         <div>
 
-            <input
-                type="checkbox"
-                name="check-item"
-                id="check-item" />
+            {isCreating && (
+                <input
+                    type="checkbox"
+                    name="check-item"
+                    checked={task.completed}
+                    id="check-item"
+                    onChange={() => onToggle(task.id)}
+                />
+            )}
 
-            <label htmlFor="check-item">Sample Task</label>
+            <span className={task.completed ? 'completed' : ''}>{task.taskName}</span>
+            <span className="duration">{task.duration} min</span>
 
-            <button>Delete</button>
+            <button onClick={onDelete}>Remove</button>
 
         </div>
     )
