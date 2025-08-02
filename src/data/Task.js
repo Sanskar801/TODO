@@ -1,4 +1,4 @@
-const Task = (taskName = 'Empty task', duration = 5) => ({
+const createTask = (taskName = 'Empty task', duration = 0) => ({
     id: Date.now(),
     taskName,
     duration: Number(duration),
@@ -6,4 +6,4 @@ const Task = (taskName = 'Empty task', duration = 5) => ({
     completed: false,
 })
 
-export default Task
+export default createTask

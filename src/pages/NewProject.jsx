@@ -2,71 +2,97 @@ import { useState } from "react";
 import TaskItem from "../component/TaskItem"
 import Project from "../data/Project";
 import Task from "../data/Task";
+import createTask from "../data/Task";
 
 
 const NewProject = () => {
 
-    const [project, setProject] = useState(Project);
-    const [task, setTask] = useState(Task);
+    const [project, setProject] = useState({
+        projectName: '',
+        timeSlot: 'morning',
+    });
+    const [taskForm, setTaskForm] = useState({
+        taskName: '',
+        duration: 0,
+    });
+
+    const [task, setTask] = useState([]);
+    // const [savedProjects, setSavedProjects] = useState([]);
 
     const handleAddTask = () => {
 
-    }
+        const newTask = createTask(taskForm.taskName, taskForm.duration);
+        setTask(prev => [...prev, newTask]);
+
+        setTaskForm({ taskName: '', duration: 5 });
+    };
+
+    // const handleRemoveTask = (taskId) => {
+    //     setTask(prev => prev.filter(task => task.id !== taskId));
+    // };
 
     const handleRemoveTask = () => {
 
-    }
+    };
+
+    const totalDuration = task.reduce((acc, task) => acc + task.duration, 0);
 
     return (
         <section className="add-task">
+            <h1>Create New Project</h1>
             <form>
-                <legend>
+                <legend className="project-det">
+                    <h3>📋 Project Details</h3>
 
-                    <label htmlFor="project">Add Project</label>
-
+                    <label htmlFor="project">Project Name</label>
                     <input
                         type="text"
                         name="project"
                         id="project"
-                        placeholder='Enter project'
-                        value={project.name}
-                        onChange={e => setProject({ ...project, name: e.target.value })} />
+                        placeholder='Learn React'
+                        value={project.projectName}
+                        onChange={e => setProject(prev => ({ ...prev, projectName: e.target.value }))} />
 
+                    <label htmlFor="timeSlot">Time Slot</label>
                     <select
-                        name="peher"
-                        id="peher"
+                        name="timeSlot"
+                        id="timeSlot"
                         value={project.timeSlot}
-                        onChange={e => setProject({ ...project, timeSlot: e.target.value })}>
+                        onChange={e => setProject(prev => ({ ...prev, timeSlot: e.target.value }))}>
+
                         <option value="morning">Morning (08:00 - 11:00)</option>
                         <option value="afternoon">Afternoon (11:00 - 05:00)</option>
                         <option value="evening">Evening (05:00 - 08:00)</option>
                         <option value="night">Night (08:00 - 10:45)</option>
+
                     </select>
 
                 </legend>
 
-                <legend>
+                <legend className="task-det">
 
-                    <label htmlFor="task">Add Task</label>
+                    <h3>➕ Add Tasks</h3>
 
+                    <label htmlFor="task">Task Name</label>
                     <input
                         type="text"
                         name="task"
                         id="task"
-                        placeholder='Enter task'
-                        value={task.name}
-                        onChange={e => setTask({ ...task, name: e.target.value })} />
+                        placeholder='Learn State management'
+                        value={taskForm.taskName}
+                        onChange={e => setTask(prev => ({ ...prev, taskName: e.target.value }))}
+                    />
 
+                    <label htmlFor="duration">Duration (0-90 minutes)</label>
                     <input
                         type="number"
                         name="duration"
                         id="duration"
-                        placeholder='Duration'
                         min="0"
                         max="90"
-                        value={task.duration}
-                        onChange={e => setTask({ ...task, duration: e.target.value })} />
-                    <label> minutes</label>
+                        value={taskForm.duration}
+                        onChange={e => setTask(prev => ({ ...prev, duration: Number(e.target.value) }))}
+                    />
 
                     <button onClick={handleAddTask}>Add Task</button>
 
@@ -74,14 +100,33 @@ const NewProject = () => {
 
                 <legend className="tasks-list">
 
-                    <label>📝 Project Tasks</label>
-                    
-                    <TaskItem
-                        key={task.id}
-                        task={task}
-                        onDelete={handleRemoveTask}
-                        isCreating={true}
-                    />
+                    <h3>📝 Project Tasks</h3>
+
+                    <div>
+                        {totalDuration > 0 && (
+                            <span>
+                                Total: {totalDuration} minutes
+                            </span>
+                        )}
+                    </div>
+
+                    {task.length === 0 ? (
+                        <div>
+                            <p>No tasks added yet. Add your first task above!</p>
+                        </div>) : (
+                        <div>
+                            {task.map(task => (
+                                <TaskItem
+                                    key={task.id}
+                                    task={task}
+                                    onDelete={handleRemoveTask}
+                                    isCreating={true}
+                                />
+                            ))}
+                        </div>
+                    )
+
+                    }
 
                 </legend>
 

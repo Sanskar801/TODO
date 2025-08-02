@@ -10,7 +10,7 @@ const App = () => {
 
   const handleClick = (e) => {
 
-    if (e.target.textContent === 'Add New Project/Tasks') {
+    if (e.target.textContent === 'New Project') {
       setIsDashboardOpen(false);
       setIsAddTaskOpen(true);
     } else {
@@ -30,8 +30,8 @@ const App = () => {
         </button>
 
         <button
-          onClick={handleClick}>
-          Add New Project/Tasks
+          onClick={(e) => handleClick(e)}>
+          New Project
         </button>
 
       </div>
