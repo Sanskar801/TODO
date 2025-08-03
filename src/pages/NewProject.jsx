@@ -41,8 +41,15 @@ const NewProject = () => {
     const handleSaveProject = (e) => {
         e.preventDefault();
 
-        (!project.projectName.trim()) && alert("Please enter a Project Name");
-        (!task.length) && alert("Please add at least one task to project");
+        if (!project.projectName.trim()) {
+            alert("Please enter a Project Name");
+            return; // Stop execution here
+        }
+
+        if (!task.length) {
+            alert("Please add at least one task to project");
+            return; // Stop execution here
+        }
 
         const newProject = createProject(project.projectName, project.timeSlot, task);
 
