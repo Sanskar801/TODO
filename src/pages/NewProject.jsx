@@ -1,6 +1,8 @@
 import { useState } from "react";
 import TaskItem from "../component/TaskItem"
 import createTask from "../data/Task";
+import createProject from "../data/Project";
+import ProjectCard from "../component/ProjectCard";
 
 
 const NewProject = () => {
@@ -9,24 +11,69 @@ const NewProject = () => {
         projectName: '',
         timeSlot: 'morning',
     });
+
     const [taskForm, setTaskForm] = useState({
         taskName: '',
         duration: 0,
     });
 
     const [task, setTask] = useState([]);
-    // const [savedProjects, setSavedProjects] = useState([]);
+
+    const [savedProjects, setSavedProjects] = useState([]);
 
     const handleAddTask = () => {
+
+        if (!taskForm.taskName.trim()) {
+            alert('Please enter a task name');
+            return;
+        }
 
         const newTask = createTask(taskForm.taskName, taskForm.duration);
         setTask(prev => [...prev, newTask]);
 
-        setTaskForm({ taskName: '', duration: 5 });
+        setTaskForm({ taskName: '', duration: 0 });
     };
 
-    const handleRemoveTask = () => {
-        // setTask(prev => prev.filter(task => task.id !== taskId))
+    const handleRemoveTask = (taskId) => {
+        setTask(prev => prev.filter(task => task.id !== taskId));
+    };
+
+    const handleSaveProject = (e) => {
+        e.preventDefault();
+
+        (!project.projectName.trim()) && alert("Please enter a Project Name");
+        (!task.length) && alert("Please add at least one task to project");
+
+        const newProject = createProject(project.projectName, project.timeSlot, task);
+
+        setSavedProjects(prev => [...prev, newProject]);
+
+        setProject({ projectName: "", timeSlot: "morning" });
+        setTask([]);
+        setTaskForm({ taskName: "", duration: 0 });
+
+        alert("Project saved");
+
+    }
+
+    const handleToggleTask = (projectId, taskId) => {
+        setSavedProjects(prev => prev.map(project =>
+            project.id === projectId
+                ? {
+                    ...project,
+                    tasks: project.tasks.map(task =>
+                        task.id === taskId
+                            ? {
+                                ...task,
+                                completed: !task.completed
+                            } : task
+                    )
+                } : project
+        ));
+    };
+
+    const handleDeleteProject = (projectId) => {
+        setSavedProjects(prev => prev.filter(project => project.id !== projectId));
     };
 
     const totalDuration = task.reduce((acc, task) => acc + task.duration, 0);
@@ -34,7 +81,7 @@ const NewProject = () => {
     return (
         <section className="add-task">
             <h1>Create New Project</h1>
-            <form>
+            <form onSubmit={handleSaveProject}>
                 <legend className="project-det">
                     <h3>📋 Project Details</h3>
 
@@ -127,6 +174,20 @@ const NewProject = () => {
                 <button type="submit">Add Project</button>
 
             </form>
+
+            {savedProjects.length > 0 && (
+                <div>
+                    <h2>📚 Your Projects</h2>
+                    {savedProjects.map(project => (
+                        <ProjectCard
+                            key={project.id}
+                            project={project}
+                            onDeleteProject={handleDeleteProject}
+                            onToggleTask={handleToggleTask}
+                        />
+                    ))}
+                </div>
+            )}
 
         </section>
     )

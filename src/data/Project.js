@@ -1,4 +1,4 @@
-const Project = (projectName, timeSlot, tasks = []) => ({
+const createProject = (projectName, timeSlot, tasks = []) => ({
     id: Date.now(),
     projectName,
     tasks,
@@ -8,4 +8,4 @@ const Project = (projectName, timeSlot, tasks = []) => ({
     completed: false,
 })
 
-export default Project
+export default createProject
