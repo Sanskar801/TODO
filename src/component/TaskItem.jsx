@@ -2,7 +2,7 @@ const TaskItem = ({ task, onToggle, onDelete, isCreating = false }) => {
     return (
         <div>
 
-            {isCreating && (
+            {!isCreating && (
                 <input
                     type="checkbox"
                     id="check-item"
@@ -15,7 +15,7 @@ const TaskItem = ({ task, onToggle, onDelete, isCreating = false }) => {
             <span className={task.completed ? 'completed' : ''}>{task.taskName}</span>
             <span className="duration">{task.duration} min</span>
 
-            <button onClick={onDelete(task.id)}>Remove</button>
+            <button type="button" onClick={onDelete(task.id)}>Remove</button>
 
         </div>
     )

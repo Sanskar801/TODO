@@ -1,7 +1,5 @@
 import { useState } from "react";
 import TaskItem from "../component/TaskItem"
-import Project from "../data/Project";
-import Task from "../data/Task";
 import createTask from "../data/Task";
 
 
@@ -27,12 +25,8 @@ const NewProject = () => {
         setTaskForm({ taskName: '', duration: 5 });
     };
 
-    // const handleRemoveTask = (taskId) => {
-    //     setTask(prev => prev.filter(task => task.id !== taskId));
-    // };
-
     const handleRemoveTask = () => {
-
+        // setTask(prev => prev.filter(task => task.id !== taskId))
     };
 
     const totalDuration = task.reduce((acc, task) => acc + task.duration, 0);
@@ -80,7 +74,7 @@ const NewProject = () => {
                         id="task"
                         placeholder='Learn State management'
                         value={taskForm.taskName}
-                        onChange={e => setTask(prev => ({ ...prev, taskName: e.target.value }))}
+                        onChange={e => setTaskForm(prev => ({ ...prev, taskName: e.target.value }))}
                     />
 
                     <label htmlFor="duration">Duration (0-90 minutes)</label>
@@ -91,10 +85,10 @@ const NewProject = () => {
                         min="0"
                         max="90"
                         value={taskForm.duration}
-                        onChange={e => setTask(prev => ({ ...prev, duration: Number(e.target.value) }))}
+                        onChange={e => setTaskForm(prev => ({ ...prev, duration: Number(e.target.value) }))}
                     />
 
-                    <button onClick={handleAddTask}>Add Task</button>
+                    <button type="button" onClick={handleAddTask}>Add Task</button>
 
                 </legend>
 
